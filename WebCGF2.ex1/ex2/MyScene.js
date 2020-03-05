@@ -28,9 +28,11 @@ class MyScene extends CGFscene {
         this.triangleSmall2 = new MyTriangleSmall(this);
         this.triangleBig = new MyTriangleBig(this);
         this.triangleBig2 = new MyTriangleBig(this);
+        this.unitCube = new MyUnitCube(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        /*
         this.displayDiamond = true;
         this.displayTriangle = true;
         this.displayParallelogram = true;
@@ -38,6 +40,9 @@ class MyScene extends CGFscene {
         this.displayTriangleSmall2 = true;
         this.displayTriangleBig = true;
         this.displayTriangleBig2 = true;
+        */
+        this.displayTangram = true;
+        this.displayUnitCube = true;
         this.scaleFactor = 1;
     }
     initLights() {3
@@ -80,7 +85,7 @@ class MyScene extends CGFscene {
         this.multMatrix(sca);
 
         // ---- BEGIN Primitive drawing section
-
+        /*
         if(this.displayDiamond == true){
             this.pushMatrix();
             this.translate(0,1,0);
@@ -136,7 +141,60 @@ class MyScene extends CGFscene {
             this.triangleSmall2.display();
             this.popMatrix();
         }
+        */
+        if(this.displayTangram)
+        {
+            this.pushMatrix();
+            this.translate(0,1,0);
+            this.diamond.display();
+            this.popMatrix();
 
+                this.pushMatrix();
+                this.translate(-1, 1, 0);
+                this.rotate(Math.PI/4.0, 0, 0 , 1);
+                this.translate(1, 1, 0);
+                this.triangle.display();
+                this.popMatrix();
+
+                this.pushMatrix();
+                this.scale(-1, 1, 1);
+                this.parallelogram.display();
+                this.popMatrix();
+
+
+                this.pushMatrix();
+                this.translate(0, -Math.sqrt(8), 0);
+                this.triangleBig2.display();
+                this.popMatrix();
+
+                this.pushMatrix();
+                this.translate(2, 0, 0);
+                this.rotate(-Math.PI/4.0, 0, 0, 1);
+                this.translate(0, -2, 0);
+                this.triangleBig.display();
+                this.popMatrix();
+
+
+                this.pushMatrix();
+                this.translate(1,0,0);
+                this.triangleSmall.display();
+                this.popMatrix();
+
+
+                this.pushMatrix();
+                this.translate(-2,-Math.sqrt(8)+2,0);
+                this.rotate(-Math.PI/2.0, 0, 0, 1);
+                this.translate(1,0,0);
+                this.triangleSmall2.display();
+                this.popMatrix();
+
+        }
+        if(this.displayUnitCube) {
+            this.pushMatrix();
+            this.translate(0.5,-0.5,-0.5);
+            this.unitCube.display();
+            this.popMatrix();
+        }
 
         // ---- END Primitive drawing section
     }
