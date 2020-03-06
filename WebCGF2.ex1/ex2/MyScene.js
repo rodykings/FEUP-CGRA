@@ -29,6 +29,8 @@ class MyScene extends CGFscene {
         this.triangleBig = new MyTriangleBig(this);
         this.triangleBig2 = new MyTriangleBig(this);
         this.unitCube = new MyUnitCube(this);
+        this.unitCubeQuad = new MyUnitCubeQuad(this);
+        this.tangram = new MyTangram(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -43,6 +45,7 @@ class MyScene extends CGFscene {
         */
         this.displayTangram = true;
         this.displayUnitCube = true;
+        this.displayUnitCubeQuad = true;
         this.scaleFactor = 1;
     }
     initLights() {3
@@ -144,49 +147,7 @@ class MyScene extends CGFscene {
         */
         if(this.displayTangram)
         {
-            this.pushMatrix();
-            this.translate(0,1,0);
-            this.diamond.display();
-            this.popMatrix();
-
-                this.pushMatrix();
-                this.translate(-1, 1, 0);
-                this.rotate(Math.PI/4.0, 0, 0 , 1);
-                this.translate(1, 1, 0);
-                this.triangle.display();
-                this.popMatrix();
-
-                this.pushMatrix();
-                this.scale(-1, 1, 1);
-                this.parallelogram.display();
-                this.popMatrix();
-
-
-                this.pushMatrix();
-                this.translate(0, -Math.sqrt(8), 0);
-                this.triangleBig2.display();
-                this.popMatrix();
-
-                this.pushMatrix();
-                this.translate(2, 0, 0);
-                this.rotate(-Math.PI/4.0, 0, 0, 1);
-                this.translate(0, -2, 0);
-                this.triangleBig.display();
-                this.popMatrix();
-
-
-                this.pushMatrix();
-                this.translate(1,0,0);
-                this.triangleSmall.display();
-                this.popMatrix();
-
-
-                this.pushMatrix();
-                this.translate(-2,-Math.sqrt(8)+2,0);
-                this.rotate(-Math.PI/2.0, 0, 0, 1);
-                this.translate(1,0,0);
-                this.triangleSmall2.display();
-                this.popMatrix();
+            this.tangram.display();
 
         }
         if(this.displayUnitCube) {
@@ -194,6 +155,9 @@ class MyScene extends CGFscene {
             this.translate(0.5,-0.5,-0.5);
             this.unitCube.display();
             this.popMatrix();
+        }
+        if(this.displayUnitCubeQuad){
+            this.unitCubeQuad.display();
         }
 
         // ---- END Primitive drawing section

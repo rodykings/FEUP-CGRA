@@ -1,8 +1,4 @@
-/**
- * MyTriangleBig
- * @constructor
- * @param scene - Reference to MyScene object
- */
+
 class MyTriangleBig extends CGFobject {
 	constructor(scene) {
 		super(scene);

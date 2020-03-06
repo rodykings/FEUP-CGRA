@@ -9,6 +9,7 @@ class MyUnitCube extends CGFobject {
 		this.initBuffers();
 	}
 	initBuffers() {
+
 		this.vertices = [
 			//face negativa x (vermelho)
 			-0.5, -0.5, -0.5, //D-	0
