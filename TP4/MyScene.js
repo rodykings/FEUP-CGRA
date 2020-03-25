@@ -12,6 +12,8 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
 
+        this.scaleFactor = 1;
+
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -67,6 +69,16 @@ class MyScene extends CGFscene {
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
+
+        this.lights[1].setPosition(-2, 5, -5, 3);
+        this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[1].enable();
+        this.lights[1].update();
+
+        this.lights[2].setPosition(1, 2, 1, 2);
+        this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[2].enable();
+        this.lights[2].update();
     }
 
     initCameras() {
@@ -74,8 +86,8 @@ class MyScene extends CGFscene {
     }
 
     setDefaultAppearance() {
-        this.setAmbient(0.2, 0.4, 0.8, 1.0);
-        this.setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.setAmbient(1.0, 1.0, 1.0, 1.0);
+        this.setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
@@ -113,10 +125,20 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
+
+        var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+            0.0, this.scaleFactor, 0.0, 0.0,
+            0.0, 0.0, this.scaleFactor, 0.0,
+            0.0, 0.0, 0.0, 1.0];
+
+        this.multMatrix(sca);
+
+
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
-        this.unitcube.display();
+       
         //this.tangram.display();
+        this.unitcube.display();
 
         // ---- BEGIN Primitive drawing section
 
@@ -126,8 +148,8 @@ class MyScene extends CGFscene {
         // Uncomment next line for NEAREST when magnifying, or 
         // add a checkbox in the GUI to alternate in real time
         
-        // this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-
+        //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+       
         //this.quad.display();
 
         // ---- END Primitive drawing section
