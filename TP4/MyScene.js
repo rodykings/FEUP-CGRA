@@ -137,8 +137,8 @@ class MyScene extends CGFscene {
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
        
-        //this.tangram.display();
-        this.unitcube.display();
+        this.tangram.display();
+        //this.unitcube.display();
 
         // ---- BEGIN Primitive drawing section
 
