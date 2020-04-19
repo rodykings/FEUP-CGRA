@@ -30,6 +30,11 @@ class MySphere extends CGFobject {
     var thetaInc = (2 * Math.PI) / this.longDivs;
     var latVertices = this.longDivs + 1;
 
+    var longIncrement = 1/this.longDivs;
+    var latIncrement = 1/this.latDivs;
+    var xTexCoord = 0.62;
+    var yTexCoord = 0;
+
     // build an all-around stack at a time, starting on "north pole" and proceeding "south"
     for (let latitude = 0; latitude <= this.latDivs; latitude++) {
       var sinPhi = Math.sin(phi);
@@ -65,10 +70,14 @@ class MySphere extends CGFobject {
         theta += thetaInc;
 
         //--- Texture Coordinates
-        // To be done... 
+        this.texCoords.push(xTexCoord, yTexCoord);
+
+        xTexCoord+=longIncrement;
         // May need some additional code also in the beginning of the function.
         
       }
+      yTexCoord+=latIncrement;
+      xTexCoord = 0.62;
       phi += phiInc;
     }
 

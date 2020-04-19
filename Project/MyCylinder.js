@@ -31,6 +31,8 @@ class MyCylinder extends CGFobject {
 
     this.vertices.push(0,0,0);
     this.vertices.push(0,1,0);
+    this.normals.push(0,-1,0);
+    this.normals.push(0,1,0);
     // build an all-around stack at a time, starting on "north pole" and proceeding "south"
     
     var counter = 0;
@@ -40,7 +42,9 @@ class MyCylinder extends CGFobject {
       var x = Math.cos(theta);
       var z = Math.sin(theta);
       this.vertices.push(x, 0, z);
+      this.normals.push(x, 0, z);
       this.vertices.push(x, 1, z);
+      this.normals.push(x, 0, z);
       theta+= thetaInc;
       counter+=2;
 

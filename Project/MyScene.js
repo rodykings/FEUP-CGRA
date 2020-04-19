@@ -26,8 +26,20 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
-        this.cylinder = new MyCylinder(this, 5000);
-        this.plane = new MyPlane(this, 10);
+        this.cylinder = new MyCylinder(this, 12);
+        this.cube = new MyUnitCubeQuad(this);
+        //this.plane = new MyPlane(this, 10);
+
+        
+        //Init material
+        this.materialWorld = new CGFappearance(this);
+        this.materialWorld.setAmbient(0.1, 0.1, 0.1, 1);
+        this.materialWorld.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.materialWorld.setSpecular(0.1, 0.1, 0.1, 1);
+        this.materialWorld.setShininess(10.0);
+        this.texture = new CGFtexture(this, 'images/earth.jpg');
+        this.materialWorld.setTexture(this.texture);
+        this.materialWorld.setTextureWrap('REPEAT', 'REPEAT');
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -70,10 +82,16 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-
+        
         //This sphere does not have defined texture coordinates
-        //this.incompleteSphere.display();
-        this.cylinder.display();
+
+        /* SPHERE DISPLAY
+        this.materialWorld.apply();
+        this.incompleteSphere.display();
+        */
+
+        this.cube.display();
+        //this.cylinder.display();
         //this.plane.display();
         // ---- END Primitive drawing section
     }
