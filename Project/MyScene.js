@@ -20,7 +20,7 @@ class MyScene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.setUpdatePeriod(50);
-        
+
         this.enableTextures(true);
 
         //Initialize scene objects
@@ -28,6 +28,7 @@ class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.cylinder = new MyCylinder(this, 12);
         this.cube = new MyUnitCubeQuad(this);
+        this.pyramid = new MyPyramid(this, 4, 4);
         //this.plane = new MyPlane(this, 10);
 
         
@@ -61,7 +62,20 @@ class MyScene extends CGFscene {
     }
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
-        //To be done...
+        //console.log("UPDATE");
+        this.checkKeys();
+    }
+
+    checkKeys()  {
+        var text="Keys pressed: ";
+        var keysPressed=false;
+        // Check for key codes e.g. in ​https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW")) {
+            text+=" W ";keysPressed=true;
+        }if (this.gui.isKeyPressed("KeyS")){
+            text+=" S ";keysPressed=true;
+        } if (keysPressed)
+            console.log(text);
     }
 
     display() {
@@ -90,7 +104,16 @@ class MyScene extends CGFscene {
         this.incompleteSphere.display();
         */
 
-        this.cube.display();
+        /*  PYRAMID DISPLAY*/
+       this.pushMatrix();
+       this.translate(0, 0, -0.5);
+       this.rotate(Math.PI/2.0, 1, 0,  0);
+       this.pyramid.display();
+       this.popMatrix();
+        
+
+        //this.cube.display();
+        //this.pyramid.display();
         //this.cylinder.display();
         //this.plane.display();
         // ---- END Primitive drawing section
