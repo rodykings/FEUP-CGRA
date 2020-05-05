@@ -28,8 +28,8 @@ class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.cylinder = new MyCylinder(this, 12);
         this.cube = new MyUnitCubeQuad(this);
-        this.pyramid = new MyPyramid(this, 4, 4);
-        //this.plane = new MyPlane(this, 10);
+        //this.pyramid = new MyPyramid(this, 4, 4);
+        this.vehicle = new MyVehicle(this, 0, 0, 0, 0);
 
         
         //Init material
@@ -63,6 +63,20 @@ class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         //console.log("UPDATE");
+        if(this.lastupdate == 0){
+            this.lastupdate = t;
+        }
+
+        var elapsedtime = t - this.lastupdate;
+
+        this.lastupdate = t;
+
+        this.vehicle.update(t);
+
+
+        this.ang += 0.08*(elapsedtime/50);
+
+
         this.checkKeys();
     }
 
@@ -72,8 +86,20 @@ class MyScene extends CGFscene {
         // Check for key codes e.g. in ​https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
             text+=" W ";keysPressed=true;
+            this.vehicle.accelerate(0.001);
         }if (this.gui.isKeyPressed("KeyS")){
             text+=" S ";keysPressed=true;
+            this.vehicle.accelerate(-0.001);
+        }
+        if (this.gui.isKeyPressed("KeyA")) {
+                text+=" A ";keysPressed=true;
+                this.vehicle.turn(Math.PI/8);
+        }if (this.gui.isKeyPressed("KeyD")){
+                text+=" D ";keysPressed=true;
+                this.vehicle.turn(-Math.PI/8);
+        }if (this.gui.isKeyPressed("KeyR")){
+            text+=" R ";keysPressed=true;
+            this.vehicle.reset();
         } if (keysPressed)
             console.log(text);
     }
@@ -105,11 +131,16 @@ class MyScene extends CGFscene {
         */
 
         /*  PYRAMID DISPLAY*/
+        
+        /*
        this.pushMatrix();
        this.translate(0, 0, -0.5);
        this.rotate(Math.PI/2.0, 1, 0,  0);
        this.pyramid.display();
-       this.popMatrix();
+       this.popMatrix();*/
+
+
+        this.vehicle.display();
         
 
         //this.cube.display();
