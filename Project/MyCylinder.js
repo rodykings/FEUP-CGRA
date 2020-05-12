@@ -19,7 +19,6 @@ class MyCylinder extends CGFobject {
    */
   initBuffers() {
 
-    console.log("CRIOU CILINDRO\n");
     this.vertices = [];
     this.indices = [];
     this.normals = [];
@@ -52,7 +51,6 @@ class MyCylinder extends CGFobject {
 
   
     for (var i = 2; i <= counter; i+=2){
-      console.log("VERT:" + i + "\n");
       if(i == counter){
         this.indices.push(0,i,2);
         this.indices.push(3,i+1,1);

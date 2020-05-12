@@ -4,15 +4,12 @@
  * @param scene - Reference to MyScene object
  */
 class MyQuad extends CGFobject {
-	constructor(scene, coords) {
+	constructor(scene, size) {
 		super(scene);
-		this.initBuffers();
-		if (coords != undefined)
-			this.updateTexCoords(coords);
+		this.initBuffers(size);
 	}
 	
-	initBuffers() {
-		var size = 25;
+	initBuffers(size) {
 		this.vertices = [
 			-size, -size, 0,	//0
 			size, -size, 0,	//1

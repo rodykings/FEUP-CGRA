@@ -11,6 +11,10 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
 
+
+        this.scaleFactor = 1;
+        this.speedFactor = 1;
+
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -26,10 +30,12 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
-        this.cylinder = new MyCylinder(this, 12);
-        this.cube = new MyUnitCubeQuad(this);
+        //this.cylinder = new MyCylinder(this, 12);
+        //this.cube = new MyUnitCubeQuad(this);
         //this.pyramid = new MyPyramid(this, 4, 4);
-        this.vehicle = new MyVehicle(this, 0, 0, 0, 0);
+        //this.terrain = new MyTerrain(this);
+        this.vehicle = new MyVehicle(this, 0, 0, 5, 0);
+        
 
         
         //Init material
@@ -44,6 +50,7 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -60,6 +67,8 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+
+
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         //console.log("UPDATE");
@@ -71,7 +80,7 @@ class MyScene extends CGFscene {
 
         this.lastupdate = t;
 
-        this.vehicle.update(t);
+        this.vehicle.update(elapsedtime);
 
 
         this.ang += 0.08*(elapsedtime/50);
@@ -86,10 +95,10 @@ class MyScene extends CGFscene {
         // Check for key codes e.g. in ​https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
             text+=" W ";keysPressed=true;
-            this.vehicle.accelerate(0.001);
+            this.vehicle.accelerate(0.001*this.speedFactor);
         }if (this.gui.isKeyPressed("KeyS")){
             text+=" S ";keysPressed=true;
-            this.vehicle.accelerate(-0.001);
+            this.vehicle.accelerate(-0.001*this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA")) {
                 text+=" A ";keysPressed=true;
@@ -97,7 +106,10 @@ class MyScene extends CGFscene {
         }if (this.gui.isKeyPressed("KeyD")){
                 text+=" D ";keysPressed=true;
                 this.vehicle.turn(-Math.PI/8);
-        }if (this.gui.isKeyPressed("KeyR")){
+        }if (this.gui.isKeyPressed("KeyP")){
+                text+=" P ";keysPressed=true;
+                this.vehicle.autopilot();
+        } if (this.gui.isKeyPressed("KeyR")){
             text+=" R ";keysPressed=true;
             this.vehicle.reset();
         } if (keysPressed)
@@ -114,12 +126,23 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-        
+
         // Draw axis
         if (this.displayAxis)
             this.axis.display();
 
         this.setDefaultAppearance();
+
+
+        var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+            0.0, this.scaleFactor, 0.0, 0.0,
+            0.0, 0.0, this.scaleFactor, 0.0,
+            0.0, 0.0, 0.0, 1.0];
+
+        this.multMatrix(sca);
+
+
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
         // ---- BEGIN Primitive drawing section
         
@@ -141,7 +164,7 @@ class MyScene extends CGFscene {
 
 
         this.vehicle.display();
-        
+        //this.terrain.display();
 
         //this.cube.display();
         //this.pyramid.display();
