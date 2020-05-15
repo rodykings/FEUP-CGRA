@@ -16,7 +16,9 @@ class MyVehicle extends CGFobject {
         this.initialPosition = [x, y, z];
         this.lastTurn = 0;
         this.autopilotVelocity = Math.PI*2/1000;
-        this.autopilotAngle= 72 * (Math.PI/180);
+        this.autopilotAngle= 72*Math.PI/180;
+        this.centerAngle = 0;
+        this.autopilotCenter = [0,0];
     }
     init(scene) {
         //scene.pyramid = new MyPyramid(scene, 4, 4);
@@ -25,20 +27,21 @@ class MyVehicle extends CGFobject {
     }
 
     update(t){
-
+        
         if(this.apmode){
-            this.angle += this.autopilotAngle*t;
-            this.x += t*this.autopilotVelocity*Math.sin(this.angle)/10000000000;
-            this.z += t*this.autopilotVelocity*Math.cos(this.angle)/10000000000;
-            this.heliceVelocity = t*this.autopilotVelocity;
-            console.log(this.z);
+            this.angle += this.autopilotAngle*t/1000;
+            this.centerAngle += this.autopilotAngle*t/1000;
+            //console.log(this.centerAngle)
+            this.x = this.autopilotCenter[0] - 5*Math.sin(this.centerAngle);
+            this.z = this.autopilotCenter[1] - 5*Math.cos(this.centerAngle);
+            this.heliceVelocity = t*this.autopilotVelocity*10;
         }else{
             this.x += t*this.velocity*Math.sin(this.angle);
             this.z += t*this.velocity*Math.cos(this.angle);
-            this.heliceVelocity = t*this.velocity;
+            this.heliceVelocity = t*this.velocity*10;
         }
-        
-        this.supply.update(t);
+
+        //this.supply.update(t);
             
     }
 
@@ -56,7 +59,12 @@ class MyVehicle extends CGFobject {
 
     
     autopilot(){
-        this.apmode = true;
+        if(!this.apmode){
+            this.apmode = true;
+            this.centerAngle =  Math.PI/2 + this.angle;
+            this.autopilotCenter = [this.x + 5*Math.sin(this.centerAngle), this.z + 5*Math.cos(this.centerAngle)];
+           
+        }
     }
 
     dropSupply(){
@@ -83,7 +91,7 @@ class MyVehicle extends CGFobject {
         this.scene.pyramid.display();
         this.scene.popMatrix();
 */
-
+        
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.angle, 0, 1, 0);
@@ -91,6 +99,12 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
 
         
+    }
+
+    printPosition(){
+        console.log("X", this.x);
+        console.log("Y", this.y);
+        console.log("Z", this.z);
     }
     
     updateBuffers(complexity){

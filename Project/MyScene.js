@@ -29,12 +29,13 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 8);
+        //this.incompleteSphere = new MySphere(this, 16, 8);
         //this.cylinder = new MyCylinder(this, 12);
         //this.cube = new MyUnitCubeQuad(this);
         //this.pyramid = new MyPyramid(this, 4, 4);
         //this.terrain = new MyTerrain(this);
         this.vehicle = new MyVehicle(this, 0, 0, 5, 0);
+        this.lastupdate = 0;
         
 
         
@@ -80,6 +81,7 @@ class MyScene extends CGFscene {
 
         this.lastupdate = t;
 
+
         this.vehicle.update(elapsedtime);
 
 
@@ -110,8 +112,8 @@ class MyScene extends CGFscene {
                 text+=" P ";keysPressed=true;
                 this.vehicle.autopilot();
         } if (this.gui.isKeyPressed("KeyR")){
-            text+=" R ";keysPressed=true;
-            this.vehicle.reset();
+                text+=" R ";keysPressed=true;
+                this.vehicle.reset();
         } if (keysPressed)
             console.log(text);
     }
