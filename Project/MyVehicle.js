@@ -23,7 +23,7 @@ class MyVehicle extends CGFobject {
     init(scene) {
         //scene.pyramid = new MyPyramid(scene, 4, 4);
         scene.airship = new MyAirShip(scene);
-        scene.supply = new MySupply(scene, 0.4);
+        this.supplies = [];
     }
 
     update(t){
@@ -31,7 +31,6 @@ class MyVehicle extends CGFobject {
         if(this.apmode){
             this.angle += this.autopilotAngle*t/1000;
             this.centerAngle += this.autopilotAngle*t/1000;
-            //console.log(this.centerAngle)
             this.x = this.autopilotCenter[0] - 5*Math.sin(this.centerAngle);
             this.z = this.autopilotCenter[1] - 5*Math.cos(this.centerAngle);
             this.heliceVelocity = t*this.autopilotVelocity*10;
@@ -40,12 +39,20 @@ class MyVehicle extends CGFobject {
             this.z += t*this.velocity*Math.cos(this.angle);
             this.heliceVelocity = t*this.velocity*10;
         }
-
-        //this.supply.update(t);
+        
+        if(this.supplies.length > 0){
+            for(var i=0; i < this.supplies.length; i++){
+                this.supplies[i].update(t);
+            }
+        }
+            
             
     }
 
     turn(val){
+        if(this.apmode){
+            return;
+        }
         this.angle += val;
         if(val > 0)
             this.lastTurn =  1;
@@ -54,6 +61,9 @@ class MyVehicle extends CGFobject {
     }
 
     accelerate(val){
+        if(this.apmode){
+            return;
+        }
         this.velocity += val;
     }
 
@@ -68,8 +78,10 @@ class MyVehicle extends CGFobject {
     }
 
     dropSupply(){
-        this.scene.supply = new MySupply(this.scene, 0.3);
-        this.supply.drop([this.x, this.y, this.z]);
+        this.supply = new MySupply(this.scene, 0.3, this.x, this.y, this.z);
+        this.supply.drop();
+        this.supplies.push(this.supply);
+        console.log("CRIOU");
     }
 
     reset(){
@@ -80,6 +92,7 @@ class MyVehicle extends CGFobject {
         this.z = this.initialPosition[2];
         this.angle = this.initialAngle;
         this.lastTurn = 0;
+        this.supplies = [];
     }
 
     display(){
@@ -92,12 +105,19 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
 */
         
+
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.angle, 0, 1, 0);
         this.scene.airship.display(this.heliceVelocity, this.lastTurn);
         this.scene.popMatrix();
 
+        if(this.supplies.length > 0){
+            for(var i=0; i < this.supplies.length; i++){
+                this.supplies[i].display();
+            }
+        }
+        
         
     }
 

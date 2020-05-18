@@ -8,198 +8,68 @@ const SupplyStates =  {
 class MySupply extends CGFobject {
 
 
-    constructor(scene, size) {
+    constructor(scene, size, x, y, z) {
         super(scene);
         this.size = size;
         this.init(scene);
-        this.initMaterials(scene);
-        //this.state=SupplyStates.INACTIVE; 
+        this.state=SupplyStates.INACTIVE; 
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.velocity = this.y/3;
     }
     
     init(scene) {
-        scene.quad1 = new MyQuad(scene, this.size);
+        this.cube = new MyCube(scene, this.size);
     }
 
     
 
     land(){
-        //this.state=SupplyStates.LANDED;
+        this.state=SupplyStates.LANDED;
     }
 
-    drop(dropPosition){
-        //this.state=SupplyStates.FALLING;
+    drop(){
+        this.state=SupplyStates.FALLING;
     }
 
     update(t){
 
-    }
-
-
-    displayLanded(){
-
-
-    }
-
-    displayFalling(){
-        this.invertTextCoords = [
-            1, 1,
-			0, 1,
-			1, 0,
-			0, 0
-        ]
-
-        this.normalTextCoords = [
-            0, 1,
-			1, 1,
-			0, 0,
-			1, 0
-        ]
-
-
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, this.size);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
-
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, -this.size);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
-
-        //bottom
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(0, -this.size, 0);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
-
-        //top
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(0, this.size, 0);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
         
-        //side
-        
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
-        this.material.apply();
-
-        this.scene.pushMatrix();
-        this.scene.translate(this.size, 0, 0);
-        this.scene.rotate(Math.PI/2, 0, 1, 0);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
-
-
-    
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(-this.size, 0, 0);
-        this.scene.rotate(Math.PI/2, 0, 1, 0);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
+        if(this.state == SupplyStates.FALLING){
+            if(this.y > 0.3){
+                this.y -= this.velocity*t/1000;
+            }
+            if(this.y < 0.3)
+            {
+                this.y = 0.01;
+                this.state = SupplyStates.LANDED;
+            }
+                
+        }
     }
+
+
+
 
     display() {
-
-        this.invertTextCoords = [
-            1, 1,
-			0, 1,
-			1, 0,
-			0, 0
-        ]
-
-        this.normalTextCoords = [
-            0, 1,
-			1, 1,
-			0, 0,
-			1, 0
-        ]
-
-
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, this.size);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
-
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, -this.size);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
-
-        //bottom
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(0, -this.size, 0);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
-
-        //top
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(0, this.size, 0);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
+       
+        if(this.state == SupplyStates.LANDED){
+            this.scene.pushMatrix();
+            this.scene.translate(this.x, this.y, this.z);
+            this.cube.displayOpenCube();
+            this.scene.popMatrix();
+        }else{
+            this.scene.pushMatrix();
+            this.scene.translate(this.x, this.y, this.z);
+            this.cube.display();
+            this.scene.popMatrix();
+        }
         
-        //side
         
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
-        this.material.apply();
 
-        this.scene.pushMatrix();
-        this.scene.translate(this.size, 0, 0);
-        this.scene.rotate(Math.PI/2, 0, 1, 0);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
 
+    }
 
     
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(-this.size, 0, 0);
-        this.scene.rotate(Math.PI/2, 0, 1, 0);
-        this.scene.quad1.display();
-        this.scene.popMatrix();
-
-
-
-
-    }
-
-    initMaterials() {
-
-        
-        this.material = new CGFappearance(this.scene);
-        this.material.setAmbient(1.0, 1.0, 1.0, 1);
-        this.material.setDiffuse(0.0, 0.0, 0.0, 0);
-        this.material.setSpecular(0.0, 0.0, 0.0, 0);
-        this.material.setShininess(10.0);
-        this.textureBox = new CGFtexture(this.scene, 'images/boxtexture.jpg');
-        this.material.setTexture(this.textureBox);
-        this.material.setTextureWrap('REPEAT', 'REPEAT');
-
-
-
-        
-        
-    }
 }

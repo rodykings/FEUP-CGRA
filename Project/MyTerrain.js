@@ -19,16 +19,9 @@ class MyTerrain extends CGFobject {
         this.material.setSpecular(0.1, 0.1, 0.1, 1);
         this.material.setShininess(10.0);
         this.texture = new CGFtexture(scene, 'images/terrain.jpg');
-        this.texture2 = new CGFtexture(scene, 'images/heightmap.jpg');
+        this.texture2 = new CGFtexture(scene, 'images/heightmap_edited2.jpg');
         this.material.setTexture(this.texture);
         this.material.setTextureWrap('REPEAT', 'REPEAT');
-
-
-        scene.gl.clearDepth(10000.0);
-		scene.gl.clearColor(1, 1, 1, 1.0);
-		scene.gl.enable(scene.gl.DEPTH_TEST);
-		scene.gl.enable(scene.gl.CULL_FACE);
-		scene.gl.depthFunc(scene.gl.LEQUAL);
 
     }
 
@@ -36,20 +29,20 @@ class MyTerrain extends CGFobject {
 
         this.scene.setActiveShader(this.shader);
 
-        this.texture.bind();
+        this.material.apply();
         this.texture2.bind(1);
-        scene.gl.texParameteri(scene.gl.TEXTURE_2D, scene.gl.TEXTURE_WRAP_S, scene.gl.REPEAT);
-        scene.gl.texParameteri(scene.gl.TEXTURE_2D, scene.gl.TEXTURE_WRAP_T, scene.gl.REPEAT);
+        //scene.gl.texParameteri(scene.gl.TEXTURE_2D, scene.gl.TEXTURE_WRAP_S, scene.gl.REPEAT);
+        //scene.gl.texParameteri(scene.gl.TEXTURE_2D, scene.gl.TEXTURE_WRAP_T, scene.gl.REPEAT);
 
 
         this.scene.pushMatrix();
-        this.scene.scale(50,1,50);
+        this.scene.scale(50,8,50);
         this.scene.rotate(-Math.PI/2, 1, 0 ,0);
-        //this.material.apply();
+        
         this.scene.plane.display();
         this.scene.popMatrix();
 
-        this.scene.setActiveShader(scene.defaultShader);
+        this.scene.setActiveShader(this.scene.defaultShader);
         
 		
         

@@ -33,10 +33,11 @@ class MyScene extends CGFscene {
         //this.cylinder = new MyCylinder(this, 12);
         //this.cube = new MyUnitCubeQuad(this);
         //this.pyramid = new MyPyramid(this, 4, 4);
-        //this.terrain = new MyTerrain(this);
+        this.terrain = new MyTerrain(this);
         this.vehicle = new MyVehicle(this, 0, 0, 5, 0);
-        this.lastupdate = 0;
         
+        this.lastupdate = 0;
+        this.nSuppliesDelivered = 0;
 
         
         //Init material
@@ -113,7 +114,12 @@ class MyScene extends CGFscene {
                 this.vehicle.autopilot();
         } if (this.gui.isKeyPressed("KeyR")){
                 text+=" R ";keysPressed=true;
+                this.nSuppliesDelivered = 0;
                 this.vehicle.reset();
+        } if (this.gui.isKeyPressed("KeyL") && this.nSuppliesDelivered < 5){
+                text+=" L ";keysPressed=true;
+                this.nSuppliesDelivered++;
+                this.vehicle.dropSupply();
         } if (keysPressed)
             console.log(text);
     }
@@ -166,9 +172,9 @@ class MyScene extends CGFscene {
 
 
         this.vehicle.display();
-        //this.terrain.display();
-
+        this.terrain.display();
         //this.cube.display();
+        //this.supply.display();
         //this.pyramid.display();
         //this.cylinder.display();
         //this.plane.display();
