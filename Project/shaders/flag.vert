@@ -9,18 +9,15 @@ uniform mat4 uNMatrix;
 uniform float timeFactor;
 
 uniform sampler2D uSampler;
-uniform sampler2D uSampler2;
 
 varying vec2 vTextureCoord;
 
 void main() {
 
+    vec3 offset = aVertexNormal;
 
-    vec3 offSet;
-    offSet = vec3(0.0, 0.0,0.07 * texture2D(uSampler2, aTextureCoord + timeFactor*vec2(0.005, 0.005)).b);
+    offset.z *= sin(aVertexPosition.x*15.0  + timeFactor)*0.1;
 
-    gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offSet, 1.0);
-
-    vTextureCoord = aTextureCoord;
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);
 
 }

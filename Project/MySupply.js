@@ -38,7 +38,7 @@ class MySupply extends CGFobject {
         
         if(this.state == SupplyStates.FALLING){
             if(this.y > 0.3){
-                this.y -= this.velocity*t/1000;
+                this.y -= this.velocity*t;
             }
             if(this.y < 0.3)
             {

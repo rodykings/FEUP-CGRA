@@ -29,8 +29,8 @@ class MyVehicle extends CGFobject {
     update(t){
         
         if(this.apmode){
-            this.angle += this.autopilotAngle*t/1000;
-            this.centerAngle += this.autopilotAngle*t/1000;
+            this.angle += this.autopilotAngle*t;
+            this.centerAngle += this.autopilotAngle*t;
             this.x = this.autopilotCenter[0] - 5*Math.sin(this.centerAngle);
             this.z = this.autopilotCenter[1] - 5*Math.cos(this.centerAngle);
             this.heliceVelocity = t*this.autopilotVelocity*10;
@@ -45,6 +45,8 @@ class MyVehicle extends CGFobject {
                 this.supplies[i].update(t);
             }
         }
+
+        this.scene.airship.update(t, this.velocity);
             
             
     }

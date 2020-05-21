@@ -7,21 +7,25 @@ class MyAirShip extends CGFobject {
         super(scene);
         this.init(scene);
         this.initMaterials();
+        this.deltax = 0;
     }
     init(scene) {
         scene.sphere = new MySphere(scene, 40, 20);
         scene.flap = new MyFlap(scene);
         scene.cylinder = new MyCylinder(scene, 20);
-        scene.flag = new MyPlane(scene);
+        scene.flag = new MyPlane(scene, 100);
+    
+    }
 
-        scene.flagShader = new CGFshader(scene.gl,"shaders/flag.vert", "shaders/flag.frag");
-        scene.flagShader.setUniformsValues({ uSampler2: 1 });
+    update(t, velocity){
+        this.deltax += 10*t*(velocity+1);
+        this.scene.flagShader.setUniformsValues({ timeFactor: this.deltax });
     }
 
 
     display(velocity, turn){
     
-
+        this.airshipMaterial.apply();
         //down
         this.scene.pushMatrix();
         this.scene.translate(0, -0.9, -0.5);
@@ -109,16 +113,13 @@ class MyAirShip extends CGFobject {
 
 
         //flag
-        this.material.apply();
-
-
-
+        
+        this.flagTexture.bind(3);
         this.scene.setActiveShader(this.scene.flagShader);
         this.scene.pushMatrix();
         this.scene.translate(0, 0, -4);
         this.scene.rotate(Math.PI/2, 0 , 1 , 0);
         this.scene.scale(1.5, 1, 1);
-        
         this.scene.flag.display();
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);
@@ -127,19 +128,20 @@ class MyAirShip extends CGFobject {
 
     initMaterials() {
 
+        this.airshipMaterial = new CGFappearance(this.scene);
+        this.airshipMaterial.setAmbient(0.7, 0.7, 0.7, 1);
+        this.airshipMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.airshipMaterial.setSpecular(0.0, 0.0, 0.0, 0);
+        this.airshipMaterial.setShininess(10.0);
         
         this.material = new CGFappearance(this.scene);
         this.material.setAmbient(1.0, 1.0, 1.0, 1);
         this.material.setDiffuse(1.0, 1.0, 1.0, 1);
         this.material.setSpecular(0.0, 0.0, 0.0, 0);
         this.material.setShininess(10.0);
-        this.textureBox = new CGFtexture(this.scene, 'images/flag.jpg');
-        this.material.setTexture(this.textureBox);
+        this.flagTexture = new CGFtexture(this.scene, 'images/flag.jpg');
+        this.material.setTexture(this.flagTexture);
         this.material.setTextureWrap('REPEAT', 'REPEAT');
-
-
-
-        
         
     }
     

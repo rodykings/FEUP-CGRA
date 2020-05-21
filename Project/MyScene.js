@@ -35,6 +35,7 @@ class MyScene extends CGFscene {
         //this.pyramid = new MyPyramid(this, 4, 4);
         this.terrain = new MyTerrain(this);
         this.vehicle = new MyVehicle(this, 0, 0, 5, 0);
+        this.billboard = new MyBillboard(this);
         
         this.lastupdate = 0;
         this.nSuppliesDelivered = 0;
@@ -49,6 +50,12 @@ class MyScene extends CGFscene {
         this.texture = new CGFtexture(this, 'images/earth.jpg');
         this.materialWorld.setTexture(this.texture);
         this.materialWorld.setTextureWrap('REPEAT', 'REPEAT');
+
+
+        this.flagShader = new CGFshader(this.gl,"shaders/flag.vert", "shaders/flag.frag");
+        this.flagShader.setUniformsValues({ timeFactor: 0, flagTexture:3});
+        this.scoreShader = new CGFshader(this.gl,"shaders/score.vert", "shaders/score.frag");
+        
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -78,7 +85,7 @@ class MyScene extends CGFscene {
             this.lastupdate = t;
         }
 
-        var elapsedtime = t - this.lastupdate;
+        var elapsedtime = (t - this.lastupdate) / 1000;
 
         this.lastupdate = t;
 
@@ -87,7 +94,8 @@ class MyScene extends CGFscene {
 
 
         this.ang += 0.08*(elapsedtime/50);
-
+        
+        this.scoreShader.setUniformsValues({ nsupplies: this.nSuppliesDelivered });
 
         this.checkKeys();
     }
@@ -98,10 +106,10 @@ class MyScene extends CGFscene {
         // Check for key codes e.g. in ​https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
             text+=" W ";keysPressed=true;
-            this.vehicle.accelerate(0.001*this.speedFactor);
+            this.vehicle.accelerate(this.speedFactor);
         }if (this.gui.isKeyPressed("KeyS")){
             text+=" S ";keysPressed=true;
-            this.vehicle.accelerate(-0.001*this.speedFactor);
+            this.vehicle.accelerate(-this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA")) {
                 text+=" A ";keysPressed=true;
@@ -173,6 +181,7 @@ class MyScene extends CGFscene {
 
         this.vehicle.display();
         this.terrain.display();
+        this.billboard.display();
         //this.cube.display();
         //this.supply.display();
         //this.pyramid.display();
