@@ -76,6 +76,8 @@ class MyVehicle extends CGFobject {
             this.centerAngle =  Math.PI/2 + this.angle;
             this.autopilotCenter = [this.x + 5*Math.sin(this.centerAngle), this.z + 5*Math.cos(this.centerAngle)];
            
+        }else{
+            this.apmode = false;
         }
     }
 
@@ -87,7 +89,6 @@ class MyVehicle extends CGFobject {
     }
 
     reset(){
-        this.apmode = false;
         this.velocity = 0;
         this.x = this.initialPosition[0];
         this.y = this.initialPosition[1];
@@ -95,6 +96,11 @@ class MyVehicle extends CGFobject {
         this.angle = this.initialAngle;
         this.lastTurn = 0;
         this.supplies = [];
+
+        if(this.apmode){
+            this.centerAngle =  Math.PI/2 + this.angle;
+            this.autopilotCenter = [this.x + 5*Math.sin(this.centerAngle), this.z + 5*Math.cos(this.centerAngle)];
+        }
     }
 
     display(){

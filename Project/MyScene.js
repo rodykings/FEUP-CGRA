@@ -31,7 +31,7 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         //this.incompleteSphere = new MySphere(this, 16, 8);
         //this.cylinder = new MyCylinder(this, 12);
-        //this.cube = new MyUnitCubeQuad(this);
+        this.cube = new MyUnitCubeQuad(this, 50);
         //this.pyramid = new MyPyramid(this, 4, 4);
         this.terrain = new MyTerrain(this);
         this.vehicle = new MyVehicle(this, 0, 0, 5, 0);
@@ -53,7 +53,10 @@ class MyScene extends CGFscene {
 
 
         this.flagShader = new CGFshader(this.gl,"shaders/flag.vert", "shaders/flag.frag");
-        this.flagShader.setUniformsValues({ timeFactor: 0, flagTexture:3});
+        this.flagShader.setUniformsValues({ timeFactor: 0, flagTexture:0});
+        this.flagBackShader = new CGFshader(this.gl,"shaders/flagBack.vert", "shaders/flagBack.frag");
+        this.flagBackShader.setUniformsValues({ timeFactor: 0, flagTexture:0});
+
         this.scoreShader = new CGFshader(this.gl,"shaders/score.vert", "shaders/score.frag");
         
 
@@ -178,11 +181,11 @@ class MyScene extends CGFscene {
        this.pyramid.display();
        this.popMatrix();*/
 
-
+        this.cube.display();
         this.vehicle.display();
         this.terrain.display();
         this.billboard.display();
-        //this.cube.display();
+        
         //this.supply.display();
         //this.pyramid.display();
         //this.cylinder.display();

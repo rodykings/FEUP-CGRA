@@ -13,13 +13,15 @@ class MyAirShip extends CGFobject {
         scene.sphere = new MySphere(scene, 40, 20);
         scene.flap = new MyFlap(scene);
         scene.cylinder = new MyCylinder(scene, 20);
-        scene.flag = new MyPlane(scene, 100);
-    
+        //scene.flag = new MyPlane(scene, 100);
+        scene.flag = new MyFlag(scene);
     }
 
     update(t, velocity){
+        /*
         this.deltax += 10*t*(velocity+1);
-        this.scene.flagShader.setUniformsValues({ timeFactor: this.deltax });
+        this.scene.flagShader.setUniformsValues({ timeFactor: this.deltax });*/
+        this.scene.flag.update(t, velocity);
     }
 
 
@@ -114,15 +116,17 @@ class MyAirShip extends CGFobject {
 
         //flag
         
-        this.flagTexture.bind(3);
+        /*
         this.scene.setActiveShader(this.scene.flagShader);
+        this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(0, 0, -4);
         this.scene.rotate(Math.PI/2, 0 , 1 , 0);
         this.scene.scale(1.5, 1, 1);
         this.scene.flag.display();
         this.scene.popMatrix();
-        this.scene.setActiveShader(this.scene.defaultShader);
+        this.scene.setActiveShader(this.scene.defaultShader);*/
+        this.scene.flag.display();
 
     }
 

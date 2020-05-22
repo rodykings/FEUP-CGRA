@@ -16,22 +16,10 @@ class MyCube extends CGFobject {
 
 
     displayOpenCube(){
-        this.invertTextCoords = [
-            1, 1,
-			0, 1,
-			1, 0,
-			0, 0
-        ]
-
-        this.normalTextCoords = [
-            0, 1,
-			1, 1,
-			0, 0,
-			1, 0
-        ]
 
 
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
+
+
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(0, 0, this.size*2);
@@ -39,7 +27,7 @@ class MyCube extends CGFobject {
         this.scene.quad1.display();
         this.scene.popMatrix();
 
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
+
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(0, 0, -this.size*2);
@@ -48,18 +36,17 @@ class MyCube extends CGFobject {
         this.scene.popMatrix();
 
         //bottom
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
+
         this.material.apply();
         this.scene.pushMatrix();
-        this.scene.rotate(Math.PI, 1, 0, 0);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.quad1.display();
         this.scene.popMatrix();
 
         
         //side
         
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
+
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.size*2, 0, 0);
@@ -69,8 +56,6 @@ class MyCube extends CGFobject {
         this.scene.popMatrix();
 
 
-    
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(-this.size*2, 0, 0);
@@ -85,59 +70,39 @@ class MyCube extends CGFobject {
     display() {
        
 
-        this.invertTextCoords = [
-            1, 1,
-			0, 1,
-			1, 0,
-			0, 0
-        ]
-
-        this.normalTextCoords = [
-            0, 1,
-			1, 1,
-			0, 0,
-			1, 0
-        ]
-
-
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(0, 0, this.size);
         this.scene.quad1.display();
         this.scene.popMatrix();
 
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
+ 
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(0, 0, -this.size);
+        this.scene.rotate(Math.PI, 0, 1, 0);
         this.scene.quad1.display();
         this.scene.popMatrix();
 
         //bottom
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
         this.material.apply();
         this.scene.pushMatrix();
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.scene.translate(0, -this.size, 0);
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.scene.quad1.display();
         this.scene.popMatrix();
 
         //top
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(0, this.size, 0);
-        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.scene.rotate(-Math.PI/2, 1, 0, 0);
         this.scene.quad1.display();
         this.scene.popMatrix();
         
-        //side
+        //side*
         
-        this.scene.quad1.updateTexCoords(this.invertTextCoords);
         this.material.apply();
-
         this.scene.pushMatrix();
         this.scene.translate(this.size, 0, 0);
         this.scene.rotate(Math.PI/2, 0, 1, 0);
@@ -146,13 +111,14 @@ class MyCube extends CGFobject {
 
 
     
-        this.scene.quad1.updateTexCoords(this.normalTextCoords);
+
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(-this.size, 0, 0);
-        this.scene.rotate(Math.PI/2, 0, 1, 0);
+        this.scene.rotate(-Math.PI/2, 0, 1, 0);
         this.scene.quad1.display();
         this.scene.popMatrix();
+
 
 
     }
