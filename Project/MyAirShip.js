@@ -13,14 +13,10 @@ class MyAirShip extends CGFobject {
         scene.sphere = new MySphere(scene, 40, 20);
         scene.flap = new MyFlap(scene);
         scene.cylinder = new MyCylinder(scene, 20);
-        //scene.flag = new MyPlane(scene, 100);
         scene.flag = new MyFlag(scene);
     }
 
     update(t, velocity){
-        /*
-        this.deltax += 10*t*(velocity+1);
-        this.scene.flagShader.setUniformsValues({ timeFactor: this.deltax });*/
         this.scene.flag.update(t, velocity);
     }
 
@@ -42,22 +38,17 @@ class MyAirShip extends CGFobject {
         this.scene.sphere.display();
         this.scene.popMatrix();
 
-
         this.scene.pushMatrix();
         this.scene.translate(0, -0.9, 1);
         this.scene.scale(0.2,0.2,0.2);
         this.scene.sphere.display();
         this.scene.popMatrix();
        
-        
         //body
         this.scene.pushMatrix();
         this.scene.scale(1,1,1.8);
         this.scene.sphere.display();
         this.scene.popMatrix();
-
-        
-
 
         //flaps
         this.scene.pushMatrix();
@@ -115,17 +106,6 @@ class MyAirShip extends CGFobject {
 
 
         //flag
-        
-        /*
-        this.scene.setActiveShader(this.scene.flagShader);
-        this.material.apply();
-        this.scene.pushMatrix();
-        this.scene.translate(0, 0, -4);
-        this.scene.rotate(Math.PI/2, 0 , 1 , 0);
-        this.scene.scale(1.5, 1, 1);
-        this.scene.flag.display();
-        this.scene.popMatrix();
-        this.scene.setActiveShader(this.scene.defaultShader);*/
         this.scene.flag.display();
 
     }
@@ -133,28 +113,15 @@ class MyAirShip extends CGFobject {
     initMaterials() {
 
         this.airshipMaterial = new CGFappearance(this.scene);
-        this.airshipMaterial.setAmbient(0.7, 0.7, 0.7, 1);
-        this.airshipMaterial.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.airshipMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
+        this.airshipMaterial.setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.airshipMaterial.setSpecular(0.0, 0.0, 0.0, 0);
         this.airshipMaterial.setShininess(10.0);
-        
-        this.material = new CGFappearance(this.scene);
-        this.material.setAmbient(1.0, 1.0, 1.0, 1);
-        this.material.setDiffuse(1.0, 1.0, 1.0, 1);
-        this.material.setSpecular(0.0, 0.0, 0.0, 0);
-        this.material.setShininess(10.0);
-        this.flagTexture = new CGFtexture(this.scene, 'images/flag.jpg');
-        this.material.setTexture(this.flagTexture);
-        this.material.setTextureWrap('REPEAT', 'REPEAT');
+        this.airshipTexture = new CGFtexture(this.scene, 'images/airship.png');
+        this.airshipMaterial.setTexture(this.airshipTexture);
+        this.airshipMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
         
     }
-    
-    updateBuffers(complexity){
-
-        this.initBuffers();
-        this.initNormalVizBuffers();
-    }
-
-
     
 }

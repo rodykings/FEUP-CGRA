@@ -17,9 +17,6 @@ class MyCube extends CGFobject {
 
     displayOpenCube(){
 
-
-
-
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(0, 0, this.size*2);
@@ -45,8 +42,6 @@ class MyCube extends CGFobject {
 
         
         //side
-        
-
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.size*2, 0, 0);
@@ -109,9 +104,6 @@ class MyCube extends CGFobject {
         this.scene.quad1.display();
         this.scene.popMatrix();
 
-
-    
-
         this.material.apply();
         this.scene.pushMatrix();
         this.scene.translate(-this.size, 0, 0);
@@ -119,13 +111,9 @@ class MyCube extends CGFobject {
         this.scene.quad1.display();
         this.scene.popMatrix();
 
-
-
     }
 
     initMaterials() {
-
-        
         this.material = new CGFappearance(this.scene);
         this.material.setAmbient(1.0, 1.0, 1.0, 1);
         this.material.setDiffuse(1.0, 1.0, 1.0, 1);
@@ -135,9 +123,5 @@ class MyCube extends CGFobject {
         this.material.setTexture(this.textureBox);
         this.material.setTextureWrap('REPEAT', 'REPEAT');
 
-
-
-        
-        
     }
 }

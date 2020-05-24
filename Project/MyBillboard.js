@@ -10,11 +10,8 @@ class MyBillboard extends CGFobject {
     
     init(scene) {
         this.board = new MyPlane(scene);
-
         
     }
-
-    
 
     display(nSupplies) {
 
@@ -71,7 +68,6 @@ class MyBillboard extends CGFobject {
 
     initMaterials() {
 
-        
         this.boardMaterial = new CGFappearance(this.scene);
         this.boardMaterial.setAmbient(0.8, 0.8, 0.8, 1);
         this.boardMaterial.setDiffuse(0.8, 0.8, 0.8, 1);
@@ -89,8 +85,6 @@ class MyBillboard extends CGFobject {
         this.scoreMaterial.setDiffuse(0.4, 0.4, 0.4, 1);
         this.scoreMaterial.setSpecular(0.0, 0.0, 0.0, 0);
         this.scoreMaterial.setShininess(10.0);
-        
-        
         
     }
 

@@ -29,10 +29,7 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        //this.incompleteSphere = new MySphere(this, 16, 8);
-        //this.cylinder = new MyCylinder(this, 12);
         this.cube = new MyUnitCubeQuad(this, 50);
-        //this.pyramid = new MyPyramid(this, 4, 4);
         this.terrain = new MyTerrain(this);
         this.vehicle = new MyVehicle(this, 0, 0, 5, 0);
         this.billboard = new MyBillboard(this);
@@ -165,31 +162,11 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
         
-        //This sphere does not have defined texture coordinates
-
-        /* SPHERE DISPLAY
-        this.materialWorld.apply();
-        this.incompleteSphere.display();
-        */
-
-        /*  PYRAMID DISPLAY*/
-        
-        /*
-       this.pushMatrix();
-       this.translate(0, 0, -0.5);
-       this.rotate(Math.PI/2.0, 1, 0,  0);
-       this.pyramid.display();
-       this.popMatrix();*/
-
         this.cube.display();
         this.vehicle.display();
         this.terrain.display();
         this.billboard.display();
         
-        //this.supply.display();
-        //this.pyramid.display();
-        //this.cylinder.display();
-        //this.plane.display();
         // ---- END Primitive drawing section
     }
 }
