@@ -103,19 +103,12 @@ class MyVehicle extends CGFobject {
         }
     }
 
-    display(){
-        /*
-        this.scene.pushMatrix();
-        this.scene.translate(this.x, this.y, this.z);
-        this.scene.rotate(this.angle, 0, 1, 0);
-        this.scene.rotate(Math.PI/2.0, 1, 0,  0);
-        this.scene.pyramid.display();
-        this.scene.popMatrix();
-*/
+    display(scaleFactor){
         
 
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.y, this.z);
+        this.scene.scale(scaleFactor, scaleFactor, scaleFactor);
         this.scene.rotate(this.angle, 0, 1, 0);
         this.scene.airship.display(this.heliceVelocity, this.lastTurn);
         this.scene.popMatrix();

@@ -64,23 +64,16 @@ class MyCylinder extends CGFobject {
       }
         
     }
-    /*
-    this.indices.push(0,2,4);
-    this.indices.push(0,4,6);
-    this.indices.push(0,6,8);
-    this.indices.push(0,8,10);
-    this.indices.push(0,10,12);
-    this.indices.push(0,12,2);
 
-    this.indices.push(5,3,1);
-    this.indices.push(7,5,1);
-    this.indices.push(9,7,1);
-    this.indices.push(11,9,1);
-    this.indices.push(13,11,1);
-    this.indices.push(3,13,1);
-*/
+    this.texCoords = [
+      
+    ];
 
-
+    for(var i=0; i <= this.divs; i++){
+      this.texCoords.push((this.divs-i)/this.divs, 1);
+      this.texCoords.push((this.divs-i)/this.divs, 0);
+    }
+  
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
   }

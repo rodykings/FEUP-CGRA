@@ -18,8 +18,9 @@ void main() {
 
     vec3 offset = aVertexNormal;
 
+    float variactionFactor = aVertexPosition.x-0.5;
     
-    offset.z *= sin(aVertexPosition.x*15.0  - timeFactor)*0.1;
+    offset.z *= sin(aVertexPosition.x*15.0  - timeFactor)*0.1*variactionFactor;
 
 
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);

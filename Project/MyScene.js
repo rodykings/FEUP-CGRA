@@ -29,9 +29,9 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.cube = new MyUnitCubeQuad(this, 50);
+        this.cube = new MyUnitCubeQuad(this, 25);
         this.terrain = new MyTerrain(this);
-        this.vehicle = new MyVehicle(this, 0, 0, 5, 0);
+        this.vehicle = new MyVehicle(this, 0, 0, 10, 0);
         this.billboard = new MyBillboard(this);
         
         this.lastupdate = 0;
@@ -58,7 +58,7 @@ class MyScene extends CGFscene {
         
 
         //Objects connected to MyInterface
-        this.displayAxis = true;
+        this.displayAxis = false;
 
     }
     initLights() {
@@ -68,7 +68,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.8, 0.1, 300, vec3.fromValues(27, 15, 15), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(1.0, 1.0, 1.0, 1.0);
@@ -150,23 +150,12 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
 
-        var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
-            0.0, this.scaleFactor, 0.0, 0.0,
-            0.0, 0.0, this.scaleFactor, 0.0,
-            0.0, 0.0, 0.0, 1.0];
-
-        this.multMatrix(sca);
-
-
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-
         // ---- BEGIN Primitive drawing section
         
+        this.vehicle.display(this.scaleFactor);
         this.cube.display();
-        this.vehicle.display();
         this.terrain.display();
         this.billboard.display();
-        
         // ---- END Primitive drawing section
     }
 }

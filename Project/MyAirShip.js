@@ -12,7 +12,7 @@ class MyAirShip extends CGFobject {
     init(scene) {
         scene.sphere = new MySphere(scene, 40, 20);
         scene.flap = new MyFlap(scene);
-        scene.cylinder = new MyCylinder(scene, 20);
+        scene.cylinder = new MyCylinder(scene, 50);
         scene.flag = new MyFlag(scene);
     }
 
@@ -23,7 +23,10 @@ class MyAirShip extends CGFobject {
 
     display(velocity, turn){
     
+        
+
         this.airshipMaterial.apply();
+
         //down
         this.scene.pushMatrix();
         this.scene.translate(0, -0.9, -0.5);
@@ -31,7 +34,7 @@ class MyAirShip extends CGFobject {
         this.scene.rotate(Math.PI/2, 1, 0, 0);
         this.scene.cylinder.display();
         this.scene.popMatrix();
-
+        
         this.scene.pushMatrix();
         this.scene.translate(0, -0.9, -0.5);
         this.scene.scale(0.2,0.2,0.2);
@@ -105,6 +108,24 @@ class MyAirShip extends CGFobject {
         this.scene.popMatrix();
 
 
+        this.ropeMaterial.apply();
+        this.scene.pushMatrix();
+        this.scene.translate(0, -0.25, -3.25);
+        this.scene.rotate(-Math.PI/12, 1, 0,1);
+        this.scene.scale(0.01, 0.01, 1.3);
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.scene.cylinder.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0, 0.25, -3.25);
+        this.scene.rotate(Math.PI/12, 1, 0,1);
+        this.scene.scale(0.01, 0.01, 1.3);
+        this.scene.rotate(Math.PI/2, 1, 0, 0);
+        this.scene.cylinder.display();
+        this.scene.popMatrix();
+
+
         //flag
         this.scene.flag.display();
 
@@ -120,6 +141,17 @@ class MyAirShip extends CGFobject {
         this.airshipTexture = new CGFtexture(this.scene, 'images/airship.png');
         this.airshipMaterial.setTexture(this.airshipTexture);
         this.airshipMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+
+        this.ropeMaterial = new CGFappearance(this.scene);
+        this.ropeMaterial.setAmbient(1.0, 1.0, 1.0, 1.0);
+        this.ropeMaterial.setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.ropeMaterial.setSpecular(0.0, 0.0, 0.0, 0);
+        this.ropeMaterial.setShininess(10.0);
+        this.ropeTexture = new CGFtexture(this.scene, 'images/rope.jpg');
+        this.ropeMaterial.setTexture(this.ropeTexture);
+        this.ropeMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        
 
         
     }
